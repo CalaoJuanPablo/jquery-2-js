@@ -1,37 +1,28 @@
-const RAND_USER_URL = 'https://randomuser.me/api/'
 const MOVIE_LIST_URL = 'https://yts.am/api/v2/list_movies.json'
 
-$.ajax(RAND_USER_URL, {
-  method: 'GET',
-  success: function(data) {
-    console.log(data)
-  },
-  error: function (err) {
-    console.log(err)
-  }
-})
+// Playlist selectors
+const $actionPlayList = document.querySelectorAll('.primaryPlaylist-list#action')
+const $dramaPlayList = document.querySelectorAll('.primaryPlaylist-list#drama')
+const $animationPlayList = document.querySelectorAll('.primaryPlaylist-list#animation')
 
-fetch(RAND_USER_URL)
-  .then(res => res.json())
-  .then(data => {
-    console.log(data)
-  })
-  .catch(err => {
-    console.log(err)
-  });
+// Modal selectors
+const $modal = document.querySelector('#modal')
+const $overlay = document.querySelector('#overlay')
+const $hideModal = document.querySelector('#hide-modal')
 
-// action
-// horror
-// animation
+const $modalTitle = $modal.querySelector('h1')
+const $modalImage = $modal.querySelector('img')
+const $modalDescription = $modal.querySelector('p')
+
 getMoviesOfGenre('action')
-getMoviesOfGenre('horror')
+getMoviesOfGenre('drama')
 getMoviesOfGenre('animation')
 
 async function getMoviesOfGenre(genre) {
   const API_URL = `${MOVIE_LIST_URL}?genre=${genre}`
 
   const movieList = await fetchFromApi(API_URL)
-  console.log(genre, movieList)
+  return movieList
 }
 
 async function fetchFromApi(url) {
